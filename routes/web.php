@@ -21,3 +21,8 @@ Route::get('/', function () {
 
 Route::get('/bunbougus', [BunbouguController::class, 'index'])
 ->name('bunbougus.index');
+
+Route::get('/bunbougus/create', [BunbouguController::class, 'create'])
+->name('bunbougus.create');
+Route::post('/bunbougus/store', [BunbouguController::class, 'store'])
+->name('bunbougus.store');
