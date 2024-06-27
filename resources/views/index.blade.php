@@ -30,14 +30,21 @@
             <th>name</th>
             <th>kakaku</th>
             <th>bunrui</th>
+            <th></th>
+            <th></th>
         </tr>
 
         @foreach($bungus as $bungu)
             <tr>
                 <td style="text-align: right;">{{$bungu->id}}</td>
-                <td>{{$bungu->name}}</td>
+                <td><a href="{{route('bunbougus.show', $bungu->id)}}?page={{request()->input('page')}}">{{$bungu->name}}</a></td>
                 <td style="text-align: right;">{{$bungu->kakaku}}円</td>
-                <td style="text-align: right;">{{$bungu->bunrui}}</td>
+                <td style="text-align: left;">{{$bungu->bunrui}}</td>
+                <td style="text-align: center;">
+                    <a href="{{route('bunbougus.edit', $bungu->id)}}?page={{request()->input('page')}}"
+                    class="btn btn-primary">変更</a>
+                </td>
+                
             </tr>
         @endforeach
     </table>

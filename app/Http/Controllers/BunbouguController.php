@@ -14,6 +14,8 @@ class BunbouguController extends Controller
     public function index()
     {
         // $bungus = Bunbougu::latest()->paginate(5);
+
+
         
             $bungus = Bunbougu::select([
                 'b.id',
@@ -27,6 +29,7 @@ class BunbouguController extends Controller
             ->orderBy('b.id', 'ASC')
             ->paginate(5);
         return view('index', compact('bungus'))
+        ->with('page', request()->input('page'))
         ->with('i', (request()->input('page') - 1) * 5);
     }
 
@@ -70,7 +73,9 @@ class BunbouguController extends Controller
      */
     public function show(Bunbougu $bunbougu)
     {
-        //
+        $bunruis = Bunrui::all();
+        return view('show', compact('bunruis'))
+        ->with('bunbougu', $bunbougu);
     }
 
     /**
@@ -78,7 +83,10 @@ class BunbouguController extends Controller
      */
     public function edit(Bunbougu $bunbougu)
     {
-        //
+        $bunruis = Bunrui::all();
+        return view('edit', compact('bunruis'))
+        ->with('page', request()->input('page'))
+        ->with('bunbougu', $bunbougu);
     }
 
     /**
@@ -86,7 +94,24 @@ class BunbouguController extends Controller
      */
     public function update(Request $request, Bunbougu $bunbougu)
     {
-        //
+        $request->validate([
+
+            'name' => 'required|max:20',
+            'kakaku' => 'required|integer',
+            'bunrui' => 'required|integer',
+            'shosai' => 'required|max:140',
+        ]);
+
+        $bunbougu->name = $request->input('name');
+        $bunbougu->kakaku = $request->input('kakaku');
+        $bunbougu->bunrui = $request->input('bunrui');
+        $bunbougu->shosai = $request->input('shosai');
+        $bunbougu->save();
+        
+        $page = request()->input('page');
+
+        return redirect()->route('bunbougus.index', ['page' => $page])
+        ->with('success', '文房具を更新しました');
     }
 
     /**
