@@ -32,6 +32,7 @@ class BunbouguController extends Controller
             ->orderBy('b.id', 'ASC')
             ->paginate(5);
         return view('index', compact('bungus'))
+        ->with('user_name', Auth::user()->name)
         ->with('page', request()->input('page'))
         ->with('i', (request()->input('page') - 1) * 5);
     }

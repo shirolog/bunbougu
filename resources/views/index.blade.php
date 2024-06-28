@@ -2,11 +2,14 @@
 
 @section('content')
 
+
+
     <div class="row">
         <div class="col-lg-12">
             <div class="text-left">
                 <h2 style="font-size: 1rem;">文房具マスター</h2>
             </div>
+
 
             <div class="text-right">
                 @auth
@@ -16,6 +19,14 @@
             </div>
         </div>
     </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            ログイン者: {{$user_name}}
+        </div>
+    </div>
+    
+
 
     <div class="row">
         <div class="col-lg-12">
