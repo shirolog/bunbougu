@@ -63,7 +63,7 @@
                 </div>
 
                 <div class="col-lg-12 mt-2 mb-2">
-                    <button type="submit" class="btn btn-primary w-100">登録</button>
+                    <button type="submit" class="btn btn-primary w-100">更新</button>
                 </div>
             </div>
         </form>

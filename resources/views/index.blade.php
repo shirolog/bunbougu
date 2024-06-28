@@ -9,7 +9,10 @@
             </div>
 
             <div class="text-right">
-                <a href="{{route('bunbougus.create')}}" class="btn btn-success mb-2">新規登録</a>
+                @auth
+                    <a href="{{route('bunbougus.create')}}?page={{request()->input('page')}}" 
+                    class="btn btn-success mb-2">新規登録</a>
+                @endauth
             </div>
         </div>
     </div>
@@ -32,6 +35,7 @@
             <th>bunrui</th>
             <th></th>
             <th></th>
+            <th>編集者</th>
         </tr>
 
         @foreach($bungus as $bungu)
@@ -41,10 +45,24 @@
                 <td style="text-align: right;">{{$bungu->kakaku}}円</td>
                 <td style="text-align: left;">{{$bungu->bunrui}}</td>
                 <td style="text-align: center;">
-                    <a href="{{route('bunbougus.edit', $bungu->id)}}?page={{request()->input('page')}}"
-                    class="btn btn-primary">変更</a>
+                    @auth
+                        <a href="{{route('bunbougus.edit', $bungu->id)}}?page={{request()->input('page')}}"
+                        class="btn btn-primary">変更</a>
+                    @endauth
+                </td>
+                <td style="text-align: center;">
+                    @auth
+                        <form action="{{route('bunbougus.destroy', $bungu->id)}}" method="post">
+                            <input type="hidden" name="page" value="{{request()->input('page')}}">
+                            @method('DELETE')
+                            @csrf
+                            <button type="submit" class="btn btn-sm btn-danger"
+                            onclick="return confirm('削除しますか？');">削除</button>
+                        </form>
+                    @endauth
                 </td>
                 
+                <td>{{$bungu->user->name}}</td>
             </tr>
         @endforeach
     </table>

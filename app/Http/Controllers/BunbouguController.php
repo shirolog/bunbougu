@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Bunbougu;
 use App\Models\Bunrui;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BunbouguController extends Controller
 {
@@ -22,10 +23,12 @@ class BunbouguController extends Controller
                 'b.name',
                 'b.kakaku',
                 'b.shosai',
+                'b.user_id',
                 'r.str as bunrui',
             ])
             ->from('bunbougus as b')
             ->join('bunruis as r', 'b.bunrui', '=', 'r.id')
+            ->join('users as u', 'b.user_id', '=', 'u.id')
             ->orderBy('b.id', 'ASC')
             ->paginate(5);
         return view('index', compact('bungus'))
@@ -61,6 +64,7 @@ class BunbouguController extends Controller
         $bunbougu->kakaku = $request->input('kakaku');
         $bunbougu->bunrui = $request->input('bunrui');
         $bunbougu->shosai = $request->input('shosai');
+        $bunbougu->user_id = Auth::user()->id;
         $bunbougu->save();
 
         return redirect()->route('bunbougus.index')
@@ -106,6 +110,7 @@ class BunbouguController extends Controller
         $bunbougu->kakaku = $request->input('kakaku');
         $bunbougu->bunrui = $request->input('bunrui');
         $bunbougu->shosai = $request->input('shosai');
+        $bunbougu->user_id = Auth::user()->id;
         $bunbougu->save();
         
         $page = request()->input('page');
@@ -119,6 +124,11 @@ class BunbouguController extends Controller
      */
     public function destroy(Bunbougu $bunbougu)
     {
-        //
+        $bunbougu->delete();
+
+        $page = request()->input('page');
+
+        return redirect()->route('bunbougus.index', ['page' => $page])
+        ->with('success', $bunbougu->name.'を削除しました');
     }
 }

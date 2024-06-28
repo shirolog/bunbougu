@@ -9,7 +9,8 @@
             </div>
 
             <div class="pull-right">
-                <a href="{{url('/bunbougus')}}" class="btn btn-success">戻る</a>
+                <a href="{{url('/bunbougus')}}?page={{request()->input('page')}}" 
+                class="btn btn-success">戻る</a>
             </div>
         </div>
     </div>

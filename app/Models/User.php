@@ -42,4 +42,10 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    //bunbougusとのリレーション関係
+    public function bunbougus(){
+        
+       return $this->hasMany(Bunbougu::class);
+    }
 }
