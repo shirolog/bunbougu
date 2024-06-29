@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BunbouguController;
+use App\Http\Controllers\JuchuController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,8 +30,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/bunbougus', [BunbouguController::class, 'index'])
-->name('bunbougus.index');
+Route::get('/bunbougus', [JuchuController::class, 'index'])
+->name('juchu.index');
 
 Route::get('/bunbougus/create', [BunbouguController::class, 'create'])
 ->name('bunbougus.create')->middleware('auth');
@@ -47,5 +48,28 @@ Route::get('/bunbougus/show/{bunbougu}', [BunbouguController::class, 'show'])
 
 Route::delete('bunbougus/{bunbougu}', [BunbouguController::class, 'destroy'])
 ->name('bunbougus.destroy')->middleware('auth');
+
+
+
+
+Route::get('/juchus', [BunbouguController::class, 'index'])
+->name('bunbougus.index');
+
+Route::get('/juchus/create', [JuchuController::class, 'create'])
+->name('juchu.create')->middleware('auth');
+Route::post('/juchus/store', [JuchuController::class, 'store'])
+->name('juchu.store')->gatherMiddleware('auth');
+
+Route::get('/juchus/edit/{juchu}', [JuchuController::class, 'edit'])
+->name('juchu.edit')->middleware('auth');
+Route::put('/juchus/edit/{juchu}', [JuchuController::class, 'update'])
+->name('juchu.update')->middleware('auth');
+
+
+Route::get('/juchus/show/{juchu}', [JuchuController::class, 'show'])
+->name('juchu.show');
+
+Route::delete('juchus/{juchu}', [BunbouguController::class, 'destroy'])
+->name('juchu.destroy')->middleware('auth');
 
 require __DIR__.'/auth.php';
