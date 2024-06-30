@@ -1,4 +1,4 @@
-@extends('app')
+@extends('layouts.app')
 
 @section('content')
 
@@ -81,5 +81,5 @@
             </tr>
         @endforeach
     </table>
-        {!!$bungus->links('pagination::bootstrap-5')!!}
+        {!!$juchus->links('pagination::bootstrap-5')!!}
 @endsection

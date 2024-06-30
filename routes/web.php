@@ -52,8 +52,8 @@ Route::delete('bunbougus/{bunbougu}', [BunbouguController::class, 'destroy'])
 
 
 
-Route::get('/juchus', [BunbouguController::class, 'index'])
-->name('bunbougus.index');
+Route::get('/juchus', [JuchuController::class, 'index'])
+->name('juchu.index');
 
 Route::get('/juchus/create', [JuchuController::class, 'create'])
 ->name('juchu.create')->middleware('auth');

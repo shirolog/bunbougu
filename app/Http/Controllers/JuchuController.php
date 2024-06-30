@@ -27,8 +27,8 @@ class JuchuController extends Controller
             'u.name as user_name'
 
         ])
-        ->from('juchu as j')
-        ->join('kyakusaki as k', 'j.kakusaki_id', '=', 'k.id')
+        ->from('juchus as j')
+        ->join('kyakusakis as k', 'j.kyakusaki_id', '=', 'k.id')
         ->join('bunbougus as b', 'j.bunbougu_id', '=', 'b.id')
         ->join('users as u', 'j.user_id', '=', 'u.id')
         ->orderBy('j.id', 'DESC')
@@ -37,7 +37,7 @@ class JuchuController extends Controller
         return view('juchu.index', compact('juchus'))
         ->with('user_name', Auth::user()->name)
         ->with('page', request()->input('page'))
-        ->with('i', (request()->input('page', 1) - 1) * 5) ;
+        ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
     /**
@@ -45,7 +45,7 @@ class JuchuController extends Controller
      */
     public function create()
     {
-        //
+        return view('juchus.create');
     }
 
     /**
