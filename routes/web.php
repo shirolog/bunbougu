@@ -30,8 +30,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/bunbougus', [JuchuController::class, 'index'])
-->name('juchu.index');
+Route::get('/bunbougus', [BunbouguController::class, 'index'])
+->name('bunbougus.index');
 
 Route::get('/bunbougus/create', [BunbouguController::class, 'create'])
 ->name('bunbougus.create')->middleware('auth');
@@ -53,23 +53,23 @@ Route::delete('bunbougus/{bunbougu}', [BunbouguController::class, 'destroy'])
 
 
 Route::get('/juchus', [JuchuController::class, 'index'])
-->name('juchu.index');
+->name('juchus.index');
 
 Route::get('/juchus/create', [JuchuController::class, 'create'])
-->name('juchu.create')->middleware('auth');
+->name('juchus.create')->middleware('auth');
 Route::post('/juchus/store', [JuchuController::class, 'store'])
-->name('juchu.store')->gatherMiddleware('auth');
+->name('juchus.store')->gatherMiddleware('auth');
 
 Route::get('/juchus/edit/{juchu}', [JuchuController::class, 'edit'])
-->name('juchu.edit')->middleware('auth');
+->name('juchus.edit')->middleware('auth');
 Route::put('/juchus/edit/{juchu}', [JuchuController::class, 'update'])
-->name('juchu.update')->middleware('auth');
+->name('juchus.update')->middleware('auth');
 
 
 Route::get('/juchus/show/{juchu}', [JuchuController::class, 'show'])
-->name('juchu.show');
+->name('juchus.show');
 
 Route::delete('juchus/{juchu}', [BunbouguController::class, 'destroy'])
-->name('juchu.destroy')->middleware('auth');
+->name('juchus.destroy')->middleware('auth');
 
 require __DIR__.'/auth.php';

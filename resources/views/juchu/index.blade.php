@@ -19,7 +19,7 @@
 
             <div class="text-right">
                 @auth
-                    <a href="{{route('juchu.create')}}?page={{request()->input('page')}}" 
+                    <a href="{{route('juchus.create')}}?page={{request()->input('page')}}" 
                     class="btn btn-success mb-2">新規登録</a>
                 @endauth
             </div>
@@ -54,32 +54,57 @@
 
         @foreach($juchus as $juchu)
             <tr>
+    
                 <td style="text-align: right;">{{$juchu->id}}</td>
+
                 <td>{{$juchu->kyakusaki_name}}</td>
+
                 <td>{{$juchu->bunbougu_name}}</td>
+
                 <td style="text-align: right;">{{$juchu->kosu}}</td>
+
                 <td style="text-align: center;">{{$juchu->joutai}}</td>
+
                 <td style="text-align: center;">
+
                     @auth
-                        <a href="{{route('juchu.edit', $juchu->id)}}?page={{request()->input('page')}}"
+
+                        <a href="{{route('juchus.edit', $juchu->id)}}?page={{request()->input('page')}}"
+
                         class="btn btn-primary">変更</a>
+
                     @endauth
+
                 </td>
+
                 <td style="text-align: center;">
+
                     @auth
-                        <form action="{{route('juchu.destroy', $bungu->id)}}" method="post">
+
+                        <form action="{{route('juchus.destroy', $juchu->id)}}" method="post">
+
                             <input type="hidden" name="page" value="{{request()->input('page')}}">
+
                             @method('DELETE')
+
                             @csrf
+
                             <button type="submit" class="btn btn-sm btn-danger"
+
                             onclick="return confirm('削除しますか？');">削除</button>
+
                         </form>
+
                     @endauth
                 </td>
+
                 
+
                 <td>{{$juchu->user_name}}</td>
+
             </tr>
+
         @endforeach
+
     </table>
-        {!!$juchus->links('pagination::bootstrap-5')!!}
 @endsection

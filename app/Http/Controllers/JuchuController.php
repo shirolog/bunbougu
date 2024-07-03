@@ -15,6 +15,8 @@ class JuchuController extends Controller
      */
     public function index()
     {
+        // $juchus = Juchu::latest()->paginate(5);
+
         $juchus = Juchu::select([
             'j.id',
             'j.kyakusaki_id',
@@ -24,8 +26,7 @@ class JuchuController extends Controller
             'j.user_id',
             'k.name as kyakusaki_name',
             'b.name as bunbougu_name',
-            'u.name as user_name'
-
+            'u.name as user_name',
         ])
         ->from('juchus as j')
         ->join('kyakusakis as k', 'j.kyakusaki_id', '=', 'k.id')
@@ -33,6 +34,7 @@ class JuchuController extends Controller
         ->join('users as u', 'j.user_id', '=', 'u.id')
         ->orderBy('j.id', 'DESC')
         ->paginate(5);
+
 
         return view('juchu.index', compact('juchus'))
         ->with('user_name', Auth::user()->name)
