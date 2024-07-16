@@ -36,7 +36,7 @@ Route::get('/bunbougus', [BunbouguController::class, 'index'])
 Route::get('/bunbougus/create', [BunbouguController::class, 'create'])
 ->name('bunbougus.create')->middleware('auth');
 Route::post('/bunbougus/store', [BunbouguController::class, 'store'])
-->name('bunbougus.store')->gatherMiddleware('auth');
+->name('bunbougus.store')->Middleware('auth');
 
 Route::get('/bunbougus/edit/{bunbougu}', [BunbouguController::class, 'edit'])
 ->name('bunbougus.edit')->middleware('auth');
@@ -58,7 +58,7 @@ Route::get('/juchus', [JuchuController::class, 'index'])
 Route::get('/juchus/create', [JuchuController::class, 'create'])
 ->name('juchus.create')->middleware('auth');
 Route::post('/juchus/store', [JuchuController::class, 'store'])
-->name('juchus.store')->gatherMiddleware('auth');
+->name('juchus.store')->Middleware('auth');
 
 Route::get('/juchus/edit/{juchu}', [JuchuController::class, 'edit'])
 ->name('juchus.edit')->middleware('auth');

@@ -59,7 +59,7 @@
 
                 <td>{{$juchu->kyakusaki->name}}</td>
 
-                <td>{{$juchu->bunbougu->name}}</td>
+                <td></td>
 
                 <td style="text-align: right;">{{$juchu->kosu}}</td>
 
@@ -100,7 +100,7 @@
 
                 
 
-                <td>{{$juchu->user_name}}</td>
+                <td>{{$juchu->user->name}}</td>
 
             </tr>
 
