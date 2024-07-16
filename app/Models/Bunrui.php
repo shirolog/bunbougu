@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Bunrui extends Model
 {
     use HasFactory;
+
+    //bunbougus
 }

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Bunrui;
 
 class Bunbougu extends Model
 {
@@ -15,8 +16,11 @@ class Bunbougu extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function juchus()
-    {
-        return $this->hasMany(Juchu::class, 'bunbougu_id');
+    //bunriとのリレーション関係
+    public function bunrui(){
+
+        return $this->belongsTo(Bunrui::class);
     }
+    
+    
 }

@@ -56,7 +56,13 @@
                 <td style="text-align: right;">{{$bungu->id}}</td>
                 <td><a href="{{route('bunbougus.show', $bungu->id)}}?page={{request()->input('page')}}">{{$bungu->name}}</a></td>
                 <td style="text-align: right;">{{$bungu->kakaku}}円</td>
-                <td style="text-align: left;">{{$bungu->bunrui}}</td>
+                <td style="text-align: left;">
+                    @foreach($bunruis as $bunrui)
+                        @if($bungu->bunrui == $bunrui->id)
+                            {{$bunrui->str}}
+                        @endif    
+                    @endforeach
+                </td>
                 <td style="text-align: center;">
                     @auth
                         <a href="{{route('bunbougus.edit', $bungu->id)}}?page={{request()->input('page')}}"

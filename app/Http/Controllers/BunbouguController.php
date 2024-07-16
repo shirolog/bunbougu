@@ -15,25 +15,12 @@ class BunbouguController extends Controller
     public function index()
     {
         // $bungus = Bunbougu::latest()->paginate(5);
-
-
-        
-            $bungus = Bunbougu::select([
-                'b.id',
-                'b.name',
-                'b.kakaku',
-                'b.shosai',
-                'b.user_id',
-                'r.str as bunrui',
-            ])
-            ->from('bunbougus as b')
-            ->join('bunruis as r', 'b.bunrui', '=', 'r.id')
-            ->join('users as u', 'b.user_id', '=', 'u.id')
-            ->orderBy('b.id', 'ASC')
-            ->paginate(5);
-        return view('index', compact('bungus'))
+        $bunruis = Bunrui::all();
+        $bungus = Bunbougu::with('bunrui')
+        ->orderBy('id', 'ASC')
+        ->paginate(5);
+        return view('index', compact('bungus', 'bunruis'))
         ->with('user_name', Auth::user()->name)
-        ->with('page', request()->input('page'))
         ->with('i', (request()->input('page') - 1) * 5);
     }
 

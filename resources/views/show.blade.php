@@ -24,7 +24,7 @@
 
             <div class="col-lg-12 mt-2 mb-2">
                 <div class="form-group">
-                    {{$bunbougu->kakaku}}
+                    {{$bunbougu->kakaku}}円
                 </div>
             </div>
 

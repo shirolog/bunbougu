@@ -57,9 +57,9 @@
     
                 <td style="text-align: right;">{{$juchu->id}}</td>
 
-                <td>{{$juchu->kyakusaki_name}}</td>
+                <td>{{$juchu->kyakusaki->name}}</td>
 
-                <td>{{$juchu->bunbougu_name}}</td>
+                <td>{{$juchu->bunbougu->name}}</td>
 
                 <td style="text-align: right;">{{$juchu->kosu}}</td>
 
