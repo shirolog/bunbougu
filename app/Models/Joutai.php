@@ -5,10 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Kyakusaki extends Model
+class Joutai extends Model
 {
     use HasFactory;
 
-    protected $table = 'kyakusakis';
+    protected $table = 'joutais';
 
+ 
 }

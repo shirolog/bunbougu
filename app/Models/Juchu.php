@@ -9,6 +9,8 @@ class Juchu extends Model
 {
     use HasFactory;
 
+    protected $table = 'juchus';
+
     //kyakusakiとのリレーション関係
     public function kyakusaki(){
 
@@ -26,4 +28,6 @@ class Juchu extends Model
 
         return $this->belongsTo(User::class);
     }
+
+ 
 }

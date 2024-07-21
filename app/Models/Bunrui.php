@@ -9,5 +9,5 @@ class Bunrui extends Model
 {
     use HasFactory;
 
-    //bunbougus
+    protected $table = 'bunruis';
 }

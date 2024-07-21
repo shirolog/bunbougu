@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('app')
 
 @section('content')
 
@@ -59,16 +59,22 @@
 
                 <td>{{$juchu->kyakusaki->name}}</td>
 
-                <td></td>
+                <td>{{$juchu->bunbougu->name}}</td>
 
                 <td style="text-align: right;">{{$juchu->kosu}}</td>
 
-                <td style="text-align: center;">{{$juchu->joutai}}</td>
+                <td style="text-align: center;">
+                @foreach ($joutais as $joutai)
+                    @if($joutai->id == $juchu->joutai)
+                    {{ $joutai->name }}
+                    @endif
+                @endforeach
+                </td>
 
                 <td style="text-align: center;">
 
                     @auth
-
+                        
                         <a href="{{route('juchus.edit', $juchu->id)}}?page={{request()->input('page')}}"
 
                         class="btn btn-primary">変更</a>
@@ -98,13 +104,19 @@
                     @endauth
                 </td>
 
-                
-
-                <td>{{$juchu->user->name}}</td>
+                <td>
+                    @foreach($users as $user)
+                        @if($user->id == $juchu->user_id)
+                            {{$user->name}}
+                        @endif
+                    @endforeach
+                </td>
 
             </tr>
 
         @endforeach
 
     </table>
+    {!!$juchus->links('pagination::bootstrap-5')!!}
+
 @endsection

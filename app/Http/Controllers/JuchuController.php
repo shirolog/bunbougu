@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Juchu;
 use App\Models\Bunbougu;
+use App\Models\Joutai;
 use App\Models\Kyakusaki;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -15,29 +17,37 @@ class JuchuController extends Controller
      */
     public function index()
     {
-        // $juchus = Juchu::latest()->paginate(5);
+        $bunbougus = Bunbougu::all();
+        $kyakusakis = Kyakusaki::all();
+        $users = User::all();
+        $joutais = Joutai::all();
 
-        $juchus = Juchu::with('kyakusaki', 'bunbougu', 'user')
-        ->orderBy('id', 'ASC')
+        $juchus = Juchu::orderBy('id', 'ASC')
         ->paginate(5);
 
-        // ->join('kyakusakis as k', 'j.kyakusaki_id', '=', 'k.id')
-        // ->join('bunbougus as b', 'j.bunbougu_id', '=', 'b.id')
-        // ->join('users as u', 'j.user_id', '=', 'u.id')
 
 
-        return view('juchu.index', compact('juchus'))
-        ->with('user_name', Auth::user()->name)
-        ->with('page', request()->input('page'))
-        ->with('i', (request()->input('page', 1) - 1) * 5);
+        if(isset(Auth::user()->name)){
+
+            return view('juchu.index', compact('juchus', 'bunbougus', 'kyakusakis', 'users', 'joutais'))
+            ->with('user_name', Auth::user()->name)
+            ->with('page', request()->input('page'))
+            ->with('i', (request()->input('page', 1) - 1) * 5);
+        }else{
+            return view('juchu.index', compact('juchus', 'bunbougus', 'kyakusakis', 'users', 'joutais'))
+            ->with('page', request()->input('page'))
+            ->with('i', (request()->input('page', 1) - 1) * 5);
+        }
     }
 
     /**
      * Show the form for creating a new resource.
      */
     public function create()
-    {
-        return view('juchus.create');
+    {   
+        $bunbougus = Bunbougu::all();
+        $kyakusakis = Kyakusaki::all();
+        return view('juchu.create', compact('bunbougus', 'kyakusakis'));
     }
 
     /**
@@ -45,7 +55,23 @@ class JuchuController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+
+            'kyakusaki_id' => 'required|integer',
+            'bunbougu_id' => 'required|integer',
+            'kosu' => 'required|integer|between:1,12',
+        ]);
+
+        $juchu = new Juchu;
+
+        $juchu-> kyakusaki_id = $request->input('kyakusaki_id');
+        $juchu-> bunbougu_id = $request->input('bunbougu_id');
+        $juchu-> kosu = $request->input('kosu');
+        $juchu-> joutai = 1;
+        $juchu-> user_id = Auth::user()->id;
+        $juchu->save();
+        return redirect()->route('juchus.index')
+        ->with('success', '受注登録しました');
     }
 
     /**
@@ -61,7 +87,10 @@ class JuchuController extends Controller
      */
     public function edit(Juchu $juchu)
     {
-        //
+        $bunbougus = Bunbougu::all();
+        $kyakusakis = Kyakusaki::all();
+        $joutais = Joutai::all();
+        return view('juchu.edit' ,compact('juchu', 'bunbougus', 'kyakusakis', 'joutais'));
     }
 
     /**
@@ -69,7 +98,24 @@ class JuchuController extends Controller
      */
     public function update(Request $request, Juchu $juchu)
     {
-        //
+        $request->validate([
+
+            'kyakusaki_id' => 'required|integer',
+            'bunbougu_id' => 'required|integer',
+            'kosu' => 'required|integer|between:1,12',
+            'joutai_id' => 'required|integer',
+        ]);
+
+        $juchu-> kyakusaki_id = $request->input('kyakusaki_id');
+        $juchu-> bunbougu_id = $request->input('bunbougu_id');
+        $juchu-> kosu = $request->input('kosu');
+        $juchu-> joutai = $request->input('joutai_id');
+        $juchu-> user_id = Auth::user()->id;
+        $juchu->save();
+        $page = request()->input('page');
+       
+        return redirect()->route('juchus.index', ['page' => $page])
+        ->with('success', '受注入力を変更しました');
     }
 
     /**
@@ -77,6 +123,9 @@ class JuchuController extends Controller
      */
     public function destroy(Juchu $juchu)
     {
-        //
+        $juchu->delete();
+        $page = request()->input('page');
+        return redirect()->route('juchus.index', ['page' => $page])
+        ->with('success', '受注ID'.$juchu->id. 'を削除しました');
     }
 }

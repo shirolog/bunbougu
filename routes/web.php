@@ -69,7 +69,7 @@ Route::put('/juchus/edit/{juchu}', [JuchuController::class, 'update'])
 Route::get('/juchus/show/{juchu}', [JuchuController::class, 'show'])
 ->name('juchus.show');
 
-Route::delete('juchus/{juchu}', [BunbouguController::class, 'destroy'])
+Route::delete('/juchus/{juchu}', [JuchuController::class, 'destroy'])
 ->name('juchus.destroy')->middleware('auth');
 
 require __DIR__.'/auth.php';

@@ -19,9 +19,16 @@ class BunbouguController extends Controller
         $bungus = Bunbougu::with('bunrui')
         ->orderBy('id', 'ASC')
         ->paginate(5);
-        return view('index', compact('bungus', 'bunruis'))
-        ->with('user_name', Auth::user()->name)
-        ->with('i', (request()->input('page') - 1) * 5);
+        if(isset(Auth::user()->name)){
+
+            return view('index', compact('bungus', 'bunruis'))
+            ->with('user_name', Auth::user()->name)
+            ->with('i', (request()->input('page') - 1) * 5);
+        }else{
+            
+            return view('index', compact('bungus', 'bunruis'))
+            ->with('i', (request()->input('page') - 1) * 5);
+        }
     }
 
     /**

@@ -10,6 +10,8 @@ class Bunbougu extends Model
 {
     use HasFactory;
 
+    protected $table = 'bunbougus';
+
     //userとのリレーション関係
     public function user(){
         

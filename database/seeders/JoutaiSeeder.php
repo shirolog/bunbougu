@@ -6,31 +6,29 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class JuchuSeeder extends Seeder
+class JoutaiSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        DB::table('juchus')->insert([
+        DB::table('joutais')->insert([
 
             [
-                'kyakusaki_id'=> 1,
-                'bunbougu_id' => 1,
-                'kosu' => 5,
-                'joutai' => 0,
-                'user_id' => 1,
+                'name' => '納期調整中',
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => null,
             ],
 
             [
-                'kyakusaki_id'=> 2,
-                'bunbougu_id' => 2,
-                'kosu' => 8,
-                'joutai' => 0,
-                'user_id' => 2,
+                'name' => '出荷済',
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => null,
+            ],
+
+            [
+                'name' => 'キャンセル',
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => null,
             ],
