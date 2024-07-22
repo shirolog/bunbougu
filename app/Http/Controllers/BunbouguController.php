@@ -14,7 +14,6 @@ class BunbouguController extends Controller
      */
     public function index()
     {
-        // $bungus = Bunbougu::latest()->paginate(5);
         $bunruis = Bunrui::all();
         $bungus = Bunbougu::with('bunrui')
         ->orderBy('id', 'ASC')
