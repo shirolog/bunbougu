@@ -22,7 +22,8 @@ class JuchuController extends Controller
         $users = User::all();
         $joutais = Joutai::all();
 
-        $juchus = Juchu::orderBy('id', 'ASC')
+        $juchus = Juchu::with('bunbougu', 'kyakusaki', 'user')
+        ->orderBy('id', 'ASC')
         ->paginate(5);
 
 
